@@ -24,14 +24,15 @@ var (
 	regxcontents    string
 
 	//go:embed version.txt
-	version       string
-	dirname       string
-	cfgfile       string
-	dryrun        bool
-	debug         bool
-	preserveAttrs bool
-	keep          int
-	dohelp        bool
+	version         string
+	dirname         string
+	cfgfile         string
+	dryrun          bool
+	debug           bool
+	preserveAttrs   bool
+	keep            int
+	dohelp          bool
+	showregxdefault bool
 )
 
 func main() {
@@ -41,8 +42,15 @@ func main() {
 	flag.BoolVar(&preserveAttrs, "P", false, "going to chown/chmod as src file")
 	flag.IntVar(&keep, "k", 3, "keep n files")
 	flag.BoolVar(&dohelp, "h", false, "help")
+	flag.BoolVar(&showregxdefault, "show_regx_default_content", false, "show regxdefault")
 	flag.Parse()
+
 	args := flag.Args()
+
+	if showregxdefault {
+		fmt.Printf("%s\n", oldlogzippercfg)
+		os.Exit(0)
+	}
 
 	flag.Usage = func() {
 		fmt.Printf("version %s\n", version)
