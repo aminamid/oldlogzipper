@@ -130,6 +130,12 @@ func readPatternsFromFile(content string) ([]*regexp.Regexp, error) {
 	patterns := make([]*regexp.Regexp, 0)
 
 	for scanner.Scan() {
+		if len(scanner.Text()) == 0 {
+			continue
+		}
+		if scanner.Text()[0] == '#' {
+			continue
+		}
 		pattern, err := regexp.Compile(scanner.Text())
 		if err != nil {
 			log.Printf("regexp compil failed: %v (%s)", err, scanner.Text())
@@ -205,6 +211,9 @@ func getMatchingFiles(patterns []*regexp.Regexp, basedir string) ([]string, erro
 	for i, l := range files {
 		newl := make([]fs.FileInfo, 0, len(l))
 		if len(l) <= keep {
+			for _, fi := range l {
+				log.Printf("keep (new): %s\n", fi.Name())
+			}
 			files[i] = newl
 			continue
 		}
