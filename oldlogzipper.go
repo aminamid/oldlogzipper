@@ -40,7 +40,7 @@ func main() {
 	flag.BoolVar(&dryrun, "n", false, "nocompress (dry run)")
 	flag.BoolVar(&debug, "D", false, "Debug log")
 	flag.BoolVar(&preserveAttrs, "P", false, "going to chown/chmod as src file")
-	flag.IntVar(&keep, "k", 3, "keep n files")
+	flag.IntVar(&keep, "k", 2, "keep n files")
 	flag.BoolVar(&dohelp, "h", false, "help")
 	flag.BoolVar(&showregxdefault, "show_regx_default_content", false, "show regxdefault")
 	flag.Parse()
